@@ -11,7 +11,7 @@ let available = [];
 
 function setup(){
     createCanvas(400, 400);
-    currentPlayer = random(players);
+    currentPlayer = floor(random(players.length));
     for(let j = 0; j < 3; j++){
         for(let i = 0; i < 3; i++){
             available.push([i, j]);
@@ -19,18 +19,55 @@ function setup(){
     }
 }
 
+function equals(a,b,c){
+    return (a==b && b==c && a != '');
+}
+
+function checkWinner(){
+    let winner = null;
+
+    //horizontal check
+    for(let i = 0; i < 3; i++){
+        if(equals(board[i][0],board[i][1],board[i][2])){
+            winner = board[i][0];
+        }
+    }
+
+    //vertical check
+    for(let i = 0; i < 3; i++){
+        if(equals(board[0][i],board[1][i],board[2][i])){
+            winner = board[0][i];
+        }
+    }
+
+    //diagonal check 
+    if(equals(board[0][0],board[1][1],board[2][2])){
+       winner = board[0][0]; 
+    }
+    if(equals(board[2][0],board[1][1],board[0][2])){
+        winner = board[2][0]; 
+    }
+
+     if(winner == null && available.length == 0){
+         return 'tie';
+     } else {
+         return winner;
+     }
+
+}
+
 function nextTurn(){
     let index = floor(random(available.length));
     let spot = available.splice(index, 1)[0];
     let i = spot[0];
     let j = spot[1];
-    board[i][j] = currentPlayer;
-    currentPlayer = random(players);
+    board[i][j] = players[currentPlayer];
+    currentPlayer = (currentPlayer + 1) % players.length;
 }
 
-function mousePressed(){
-    nextTurn();
-}
+// function mousePressed(){
+//     nextTurn();
+// }
 
 function draw(){
     background(225);
@@ -62,6 +99,12 @@ function draw(){
             }
         }
     }
+    let result = checkWinner();
+    if(result != null){
+        noLoop();
+        console.log(result);
+    }
+    nextTurn();
 }
 
 // function setup(){
