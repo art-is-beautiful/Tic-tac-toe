@@ -11,6 +11,7 @@ let available = [];
 
 function setup(){
     createCanvas(400, 400);
+    frameRate(1);
     currentPlayer = floor(random(players.length));
     for(let j = 0; j < 3; j++){
         for(let i = 0; i < 3; i++){
@@ -102,16 +103,9 @@ function draw(){
     let result = checkWinner();
     if(result != null){
         noLoop();
+        createP(result).style('color','#FFF').style('font-size', '32pt');
         console.log(result);
+        alert('The winner is ' + result);
     }
     nextTurn();
 }
-
-// function setup(){
-//     createCanvas(600, 600);
-// }
-
-// function draw(){
-//     background(51);
-//     ellipse(mouseX, mouseY, 60, 60);
-// }
