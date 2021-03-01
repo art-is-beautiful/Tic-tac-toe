@@ -105,7 +105,7 @@ function draw(){
         noLoop();
         createP(result).style('color','#FFF').style('font-size', '32pt');
         console.log(result);
-        alert('The winner is ' + result);
+        
     }
     nextTurn();
 }
