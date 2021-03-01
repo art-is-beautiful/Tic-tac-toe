@@ -1,0 +1,7 @@
+{
+    "verbose": true,
+    "quiet": false,
+    "server": "./index.html",
+    "watch": ["./"],
+    "ext": "js, css, html"
+}
